@@ -1,0 +1,157 @@
+<div class="header">
+
+    <h3 class="text-muted">Flight Search Engine</h3>
+</div>
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-4 search-box">
+            <tabset justified="true">
+                <tab heading="One way" ng-click="set_return('oneway')">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select ng-model="flight.origin" name="origin" ng-options="origin for origin in stations" required>
+                                <option value="">Select Origin</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select ng-model="flight.destination" name="origin" ng-options="destination for destination in stations" required>
+                                <option value="">Select Destination</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="flight.dep_date" is-open="flight.dep_date.open" ng-click="flight.dep_date.open = true" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" class="input-md" placeholder="Departure Date" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 number_passengers">
+                            <input type="number" placeholder="Passengers" ng-model="passenger_count" min="1" max="6" ng-required="true">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="register">
+                            <input type='button' ng-click='search(flight)' value="search" />
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="Return" ng-click="set_return('returntrip')">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select ng-model="flight.origin" name="origin" ng-options="origin for origin in stations" required>
+                                <option value="">Select Origin</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select ng-model="flight.destination" name="origin" ng-options="destination for destination in stations" required>
+                                <option value="">Select Destination</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="flight.departure_date" is-open="flight.departure_date.open" ng-click="flight.departure_date.open = true" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" class="input-md" placeholder="Departure Date" />
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="flight.return_date" is-open="flight.return_date.open" ng-click="flight.return_date.open = true" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" class="input-md" placeholder="Return Date" />
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 number_passengers">
+                            <input type="number" placeholder="Passengers" ng-model="passenger_count" min="1" max="6" ng-required="true">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="register">
+                            <input type='button' ng-click='search(flight)' value="search" />
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+
+            <div class="row for_slider box">
+                <div class="col-md-11">
+                    <span class="min">Rs. {{item.minPrice}}</span>
+                    <span class="max">Rs. {{item.maxPrice}}</span>
+                    <slider custom-floor="item.minPrice" floor="100" custom-ceiling="item.maxPrice" ceiling="1000" step="10" precision="2" ng-model="item.cost" title="{{item.cost}}"></slider>
+                    <span class="slider_text">Refine your Search</span>
+                    <br>
+                    <span class="label_slider">Availability upto:</span>
+                    <span class="money">{{item.cost}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="heading col-md-8">
+            <span ng-show="after_search != 'true'">Welcome to Flight Search Engine</span>
+            <span>{{show_origin}}</span>
+            <span ng-show="after_search == 'true'">></span>
+            <span>{{show_destination}}</span>
+            <span ng-show="return_flights">> {{show_origin}}
+                <span>
+        </div>
+        <div ng-show="after_search != 'true'" class="col-md-8">
+            <span>
+                Welcome to the easy interface for the flight search.
+                <br>Direction for use:
+                <br>As it is self understood, select the cities from the drop downs seen on the left hand side of the screen and click on search to see the suitable flights plying between the two cities.
+                <br>The search can be easily refined on the basis of the slider shown below.
+                <br>The result of the search depends upon the value of the slider. Drag the slider to change the search results.
+            </span>
+        </div>
+        <div class="col-md-4">
+            <div class="noflight" ng-show="number_advancing_flights == 0">
+                <span class="exclaim">Sorry !</span>
+                <br>
+                <span>Flights cannot be found for these source and destination. Please Try changing the value of tickets from the slider or try other cities.</span>
+            </div>
+            <div class="row box" ng-repeat="result_flight in search_results.onwards">
+                <div class="price">{{result_flight.fare}}</div>
+                <div class="">
+                    <div class="flightid">{{result_flight.flight_id}}</div>
+                    <div class="travel">{{result_flight.source_code}} > {{result_flight.destination_code}}</div>
+                    <div class="timings">
+                        Departs: {{result_flight.departs_at}}
+                        <br>Arrives: {{result_flight.arrives_at}}
+                    </div>
+                    <div class="register">
+                        <button ng-click="register">Register</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" ng-show="return_flights">
+            <div class="noflight" ng-show="number_returning_flights == 0">
+                <span class="exclaim">Sorry !</span>
+                <br>
+                <span>No returning flights could be found for these source and destination. Please Try changing the value of tickets from the slider or try other cities.</span>
+            </div>
+            <div class="row box" ng-repeat="result_flight in search_results.towards">
+                <div class="price">{{result_flight.fare}}</div>
+                <div class="">
+                    <div class="flightid">{{result_flight.flight_id}}</div>
+                    <div class="travel">{{result_flight.source_code}} > {{result_flight.destination_code}}</div>
+                    <div class="timings">
+                        Departs: {{result_flight.departs_at}}
+                        <br>Arrives: {{result_flight.arrives_at}}
+                    </div>
+                    <div class="register">
+                        <button ng-click="register">Register</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+</div>

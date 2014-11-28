@@ -1,0 +1,88 @@
+.form{
+    text-align:left;
+}
+
+.form input{
+    margin-bottom: 5px;
+    border-radius: 3px;
+}
+
+.box{
+    border-bottom: 1px solid #aaa;
+    text-align: left;
+    padding: 10px 10px;
+}
+
+.jumbotron .btn {
+    padding: 2px 2px;
+}
+
+.search-box{
+    padding: 20px;
+    min-height: 400px;
+}
+
+.search-box input {
+    margin-bottom: 2px;
+    margin-top: 3px;
+    font-size: 18px;
+    width: 230px;
+}
+
+.price{
+    font-size: 26px;
+}
+
+.search-box select{
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-size: 18px;
+    width:230px;
+}
+
+.heading{
+    font-size: 30px;
+    text-align: left;
+    border-bottom: 2px dashed #aaa;
+    min-height: 63px;
+}
+
+.heading span:first{
+    padding-left:30px;
+}
+
+.travel{
+    font-size: 18px;
+}
+
+.register{
+    float: right;
+}
+
+.number_passengers{
+    width:155px;
+}
+
+.register input{
+    width: 100px;
+}
+
+.min{
+    float:left;
+}
+
+.max{
+    float:right;
+}
+
+.timings{
+    font-size: 18px;
+}
+
+.exclaim{
+    font-size:30px;
+}
+
+.money{
+    font-size: 18px;
+}
